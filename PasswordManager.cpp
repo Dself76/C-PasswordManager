@@ -13,7 +13,7 @@ PasswordManager::~PasswordManager() {}
 // Attempts to add a password to the map. Returns true if the site didn't exist and was added.
 bool PasswordManager::addPassword(const std::string& site, const std::string& password) {
     auto result = passwords.insert({ site, password });
-    return result.second;  // 'second' is true if the insert was successful.
+    return result.second;  // 'second' is true if the insert was successful, should return when a new one is created,, work on this, pick up here when I start tommorrow.
 }
 
 // Tries to remove a password. Returns true if the site existed and the password was removed.
@@ -21,7 +21,7 @@ bool PasswordManager::removePassword(const std::string& site) {
     return passwords.erase(site) > 0;  // erase returns the number of elements removed.
 }
 
-// Retrieves the password for a given site, returns an empty string if the site doesn't exist.
+// Retrieves the password for a given site, returns an empty string if the site doesn't exist. So I was trying to make this if someone logs in and doesnt have an account to just anything it would let them know.
 std::string PasswordManager::getPassword(const std::string& site) const {
     auto it = passwords.find(site);  // Try to find the site.
     if (it != passwords.end()) {     // If found...
@@ -32,12 +32,12 @@ std::string PasswordManager::getPassword(const std::string& site) const {
 
 // Outputs all site-password pairs to the console.
 void PasswordManager::listAll() const {
-    for (const auto& pair : passwords) {  // Range-based for loop to go through all pairs.
+    for (const auto& pair : passwords) {  // Range-based for loop to go through all pairs. Double check the for loop if if not working ,,remember to tell myself to check here first befoe commiting to git
         std::cout << pair.first << ": " << pair.second << std::endl;
     }
 }
 
-// Generates a random password of the requested length...The length can be changed
+// Generates a random password of the requested length...The length can be changed, Im not making it too long for right now
 std::string PasswordManager::generatePassword(size_t length) {
     const std::string chars =
         "0123456789"
